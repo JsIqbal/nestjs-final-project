@@ -1,0 +1,26 @@
+### Create A User
+POST http://localhost:3000/auth/signup
+content-Type: application/json
+
+{
+    "email": "kraken@k.com",
+    "password": "kdjrhgu",
+    "extraParams": "dfjghsrei"
+}
+
+### Find a user
+GET http://localhost:3000/auth/4
+
+### Find al user
+GET http://localhost:3000/auth?email=kraken@k.com
+
+### Delete a user
+DELETE http://localhost:3000/auth/2654
+
+### Update a user
+PATCH http://localhost:3000/auth/4
+content-Type: application/json
+
+{
+  "password": "aaaaa"
+}
