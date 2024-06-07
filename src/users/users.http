@@ -13,9 +13,15 @@ POST http://localhost:3000/auth/signin
 content-Type: application/json
 
 {
-    "email": "krack@k.com",
+    "email": "krafgjck@k.com",
     "password": "kdjrhgu"
 }
+
+### Set color in session
+GET http://localhost:3000/auth/colors/red
+
+### Get color from session
+GET http://localhost:3000/auth/colors/
 
 ### Find a user
 GET http://localhost:3000/auth/4

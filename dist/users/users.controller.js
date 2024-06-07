@@ -31,6 +31,12 @@ let UsersController = class UsersController {
     signin(body) {
         return this.authService.signin(body.email, body.password);
     }
+    setColor(color, session) {
+        session.color = color;
+    }
+    getColor(session) {
+        return session.color;
+    }
     async getUser(id) {
         const user = await this.userService.findOne(parseInt(id));
         if (!user) {
@@ -65,6 +71,21 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "signin", null);
+__decorate([
+    (0, common_1.Get)("/colors/:color"),
+    __param(0, (0, common_1.Param)("color")),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "setColor", null);
+__decorate([
+    (0, common_1.Get)("/colors"),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getColor", null);
 __decorate([
     (0, common_1.Get)("/:id"),
     __param(0, (0, common_1.Param)("id")),
