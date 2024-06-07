@@ -9,6 +9,7 @@ import {
     Post,
     Query,
     Session,
+    UseInterceptors,
 } from "@nestjs/common";
 import { CreateUserDto } from "./dtos/create-user.dto";
 import { UsersService } from "./users.service";
@@ -16,21 +17,31 @@ import { UpdateUserDto } from "./dtos/update-user.dto";
 import { Serialize } from "src/interceptors/serialize.interceptor";
 import { UserDto } from "./dtos/user-dto";
 import { AuthService } from "./auth.service";
+import { currentUser } from "src/decorators/current-user.decorator";
+import { User } from "./user.entity";
+import { CurrentUserInterceptor } from "./interceptors/current-user.interceptor";
 
 @Controller("auth")
 @Serialize(UserDto) // Applying interceptor for all routes
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
     constructor(
         private userService: UsersService,
         private authService: AuthService
     ) {}
 
-    @Get('/whoami')
-    whoAmI(@Session() session: any) {
-        const user = this.userService.findOne(session.userId);
-        
-        if (!user) throw new NotFoundException("User Is Logged Out!");
+    // @Get('/whoami')
+    // whoAmI(@Session() session: any) {
+    //     const user = this.userService.findOne(session.userId);
 
+    //     if (!user) throw new NotFoundException("User Is Logged Out!");
+
+    //     return user;
+    // }
+
+    @Get("/whoami")
+    whoAmI(@currentUser() user: User) {
+        console.log("------------------", user)
         return user;
     }
 
@@ -52,7 +63,7 @@ export class UsersController {
         return user;
     }
 
-    @Post('/logout')
+    @Post("/logout")
     async logout(@Session() session: any) {
         session.userId = null;
     }
