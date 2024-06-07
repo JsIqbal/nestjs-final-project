@@ -3,9 +3,8 @@ POST http://localhost:3000/auth/signup
 content-Type: application/json
 
 {
-    "email": "krack@k.com",
-    "password": "kdjrhgu",
-    "extraParams": "dfjghsrei"
+    "email": "krak2@k.com",
+    "password": "kdjrhgu"
 }
 
 ### Signin a user
@@ -13,9 +12,15 @@ POST http://localhost:3000/auth/signin
 content-Type: application/json
 
 {
-    "email": "krafgjck@k.com",
+    "email": "krak2@k.com",
     "password": "kdjrhgu"
 }
+
+### Get current user
+GET http://localhost:3000/auth/whoami
+
+### logout current user
+POST http://localhost:3000/auth/logout
 
 ### Set color in session
 GET http://localhost:3000/auth/colors/red
