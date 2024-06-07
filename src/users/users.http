@@ -3,9 +3,18 @@ POST http://localhost:3000/auth/signup
 content-Type: application/json
 
 {
-    "email": "kraken@k.com",
+    "email": "krack@k.com",
     "password": "kdjrhgu",
     "extraParams": "dfjghsrei"
+}
+
+### Signin a user
+POST http://localhost:3000/auth/signin
+content-Type: application/json
+
+{
+    "email": "krack@k.com",
+    "password": "kdjrhgu"
 }
 
 ### Find a user
