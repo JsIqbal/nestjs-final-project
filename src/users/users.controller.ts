@@ -25,24 +25,36 @@ export class UsersController {
         private authService: AuthService
     ) {}
 
+    @Get('/whoami')
+    whoAmI(@Session() session: any) {
+        const user = this.userService.findOne(session.userId);
+        
+        if (!user) throw new NotFoundException("User Is Logged Out!");
+
+        return user;
+    }
+
     @Post("/signup")
-    createUser(@Body() body: CreateUserDto) {
-        return this.authService.signup(body.email, body.password);
+    async createUser(@Body() body: CreateUserDto, @Session() session: any) {
+        const user = await this.authService.signup(body.email, body.password);
+
+        session.userId = user.id;
+
+        return user;
     }
 
     @Post("/signin")
-    signin(@Body() body: CreateUserDto) {
-        return this.authService.signin(body.email, body.password);
+    async signin(@Body() body: CreateUserDto, @Session() session: any) {
+        const user = await this.authService.signin(body.email, body.password);
+
+        session.userId = user.id;
+
+        return user;
     }
 
-    @Get("/colors/:color")
-    setColor(@Param("color") color: string, @Session() session: any) {
-        session.color = color;
-    }
-
-    @Get("/colors")
-    getColor(@Session() session: any) {
-        return session.color;
+    @Post('/logout')
+    async logout(@Session() session: any) {
+        session.userId = null;
     }
 
     // @Serialize(UserDto) // Applying interceptor for specific controller
