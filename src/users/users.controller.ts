@@ -19,9 +19,9 @@ import { UserDto } from "./dtos/user-dto";
 import { UsersService } from "./users.service";
 import { AuthService } from "./auth.service";
 
-import { Serialize } from "src/interceptors/serialize.interceptor";
+import { Serialize } from "../interceptors/serialize.interceptor";
 
-import { currentUser } from "src/decorators/current-user.decorator";
+import { currentUser } from "../decorators/current-user.decorator";
 
 import { User } from "./user.entity";
 

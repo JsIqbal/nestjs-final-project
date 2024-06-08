@@ -43,11 +43,11 @@ describe("AuthService", () => {
         service = module.get(AuthService);
     });
 
-    it("can create an instance of Auth service", async () => {
+    it("Auth service should be defined", async () => {
         expect(service).toBeDefined();
     });
 
-    it("creates a user with a salted and hashed pass", async () => {
+    it("Signup creates a user with a salted and hashed pass", async () => {
         const user = await service.signup("js@iq.com", "1234asdf");
 
         expect(user.password).not.toEqual("1234asdf");
@@ -57,7 +57,7 @@ describe("AuthService", () => {
         expect(hash).toBeDefined();
     });
 
-    it("throws an error if user signs up with email that is in use", async () => {
+    it("Signup throws error if user signs up with email that is in use", async () => {
         await service.signup("asdf@asdf.com", "asdf");
 
         try {
@@ -68,7 +68,7 @@ describe("AuthService", () => {
         }
     });
 
-    it("throws if signin is called with an unused email", async () => {
+    it("Signin throws error if signin is called with an unused email", async () => {
         try {
             await service.signin("asdflkj@asdlfkj.com", "passdflkj");
         } catch (error) {
@@ -77,7 +77,7 @@ describe("AuthService", () => {
         }
     });
 
-    it("throws if an invalid password is provided", async () => {
+    it("Signin throws error if an invalid password is provided", async () => {
         await service.signup("asdf@asdf.com", "asdf");
         try {
             await service.signin("asdf@asdf.com", "asdf");
@@ -86,7 +86,7 @@ describe("AuthService", () => {
         }
     });
 
-    it("Returns a user if password is correct", async () => {
+    it("Signin returns a user if password is correct", async () => {
         await service.signup("asdf@asdf.com", "asdf");
 
         const user = await service.signin("asdf@asdf.com", "asdf");
