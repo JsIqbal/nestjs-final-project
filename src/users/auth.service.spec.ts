@@ -8,13 +8,25 @@ import { BadRequestException, NotFoundException } from "@nestjs/common";
 
 describe("AuthService", () => {
     let service: AuthService;
-    let fakeUserService: Partial<UsersService>;
+    let fakeUsersService: Partial<UsersService>;
 
     beforeEach(async () => {
-        fakeUserService = {
-            find: () => Promise.resolve([]),
+        const users: User[] = [];
+        fakeUsersService = {
+            find: (email: string) => {
+                const filteredUsers = users.filter(
+                    (user) => user.email === email
+                );
+                return Promise.resolve(filteredUsers);
+            },
             create: (email: string, password: string) => {
-                return Promise.resolve({ id: 1, email, password } as User);
+                const user = {
+                    id: Math.floor(Math.random() * 999999),
+                    email,
+                    password,
+                } as User;
+                users.push(user);
+                return Promise.resolve(user);
             },
         };
 
@@ -23,7 +35,7 @@ describe("AuthService", () => {
                 AuthService,
                 {
                     provide: UsersService,
-                    useValue: fakeUserService,
+                    useValue: fakeUsersService,
                 },
             ],
         }).compile();
@@ -47,7 +59,7 @@ describe("AuthService", () => {
 
     it("throws an error if user signs up with email that is in use", async () => {
         try {
-            fakeUserService.find = () =>
+            fakeUsersService.find = () =>
                 Promise.resolve([
                     {
                         id: 1,
@@ -73,7 +85,7 @@ describe("AuthService", () => {
     });
 
     it("throws if an invalid password is provided", async () => {
-        fakeUserService.find = () =>
+        fakeUsersService.find = () =>
             Promise.resolve([
                 { email: "asdf@asdf.com", password: "laskdjf" } as User,
             ]);
@@ -85,14 +97,7 @@ describe("AuthService", () => {
     });
 
     it("Returns a user if password is correct", async () => {
-        fakeUserService.find = () =>
-            Promise.resolve([
-                {
-                    email: "asdf@asdf.com",
-                    password:
-                        "27348c8413b34905.4beff003437b02fc4b88302d195d77f7b2b5663f3c6fad1773005f208dc65816",
-                } as User,
-            ]);
+        await service.signup("asdf@asdf.com", "asdf");
 
         const user = await service.signin("asdf@asdf.com", "asdf");
         expect(user).toBeDefined();
