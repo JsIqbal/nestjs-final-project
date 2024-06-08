@@ -11,18 +11,24 @@ import {
     Session,
     UseGuards,
 } from "@nestjs/common";
+
 import { CreateUserDto } from "./dtos/create-user.dto";
-import { UsersService } from "./users.service";
 import { UpdateUserDto } from "./dtos/update-user.dto";
-import { Serialize } from "src/interceptors/serialize.interceptor";
 import { UserDto } from "./dtos/user-dto";
+
+import { UsersService } from "./users.service";
 import { AuthService } from "./auth.service";
+
+import { Serialize } from "src/interceptors/serialize.interceptor";
+
 import { currentUser } from "src/decorators/current-user.decorator";
+
 import { User } from "./user.entity";
+
 import { AuthGuard } from "./guards/auth.guard";
 
 @Controller("auth")
-@Serialize(UserDto) // Applying interceptor for all routes in this controller
+@Serialize(UserDto)
 export class UsersController {
     constructor(
         private userService: UsersService,
@@ -58,7 +64,6 @@ export class UsersController {
         session.userId = null;
     }
 
-    // @Serialize(UserDto) // Applying interceptor for specific controller
     @Get("/:id")
     async getUser(@Param("id") id: string) {
         const user = await this.userService.findOne(parseInt(id));
