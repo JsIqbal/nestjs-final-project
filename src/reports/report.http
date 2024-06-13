@@ -11,3 +11,11 @@ Content-Type: application/json
     "lng": 0,
     "miles": 5000
 }
+
+### Create a report
+PATCH http://localhost:3000/reports/3
+Content-Type: application/json
+
+{
+    "approved": false
+}
