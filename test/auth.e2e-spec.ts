@@ -15,19 +15,38 @@ describe("AppController (e2e)", () => {
         await app.init();
     });
 
-    it("/ (GET)", () => {
-        return request(app.getHttpServer())
+    it("Handles a signup request", async () => {
+        const res = await request(app.getHttpServer())
             .post("/auth/signup")
             .send({
-                email: "krffftyudhgthdak2@k.com",
-                password: "kdjrhgu",
+                email: "k@k.com",
+                password: "asdfg",
             })
-            .expect(201)
-            .then((res) => {
-                const { id, email } = res.body;
+            .expect(201);
+        const { id, email } = res.body;
+        expect(id).toBeDefined();
+        expect(email).toBeDefined();
+    });
 
-                expect(id).toBeDefined();
-                expect(email).toBeDefined();
+    it("Gets a signedin user", async () => {
+        const email = "k@k.com";
+
+        const res = await request(app.getHttpServer())
+            .post("/auth/signup")
+            .send({
+                email,
+                password: "123asdf",
+            })
+            .expect(201);
+
+        const cookie = res.get("Set-Cookie");
+
+        await request(app.getHttpServer())
+            .get("/auth/whoami")
+            .set("Cookie", cookie)
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.email).toEqual(email);
             });
     });
 });
