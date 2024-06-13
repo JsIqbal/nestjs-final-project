@@ -41,10 +41,9 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
         UsersModule,
         ReportsModule,
     ],
-    controllers: [AppController, ReportsController],
+    controllers: [AppController],
     providers: [
         AppService,
-        ReportsService,
         {
             provide: APP_PIPE,
             useValue: new ValidationPipe({
