@@ -12,10 +12,10 @@ Content-Type: application/json
     "miles": 5000
 }
 
-### Create a report
+### Update a report
 PATCH http://localhost:3000/reports/3
 Content-Type: application/json
 
 {
-    "approved": false
+    "approved": true
 }
