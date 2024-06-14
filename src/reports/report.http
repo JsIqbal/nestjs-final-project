@@ -19,3 +19,6 @@ Content-Type: application/json
 {
     "approved": true
 }
+
+### Set color in session
+GET http://localhost:3000/reports?make=Toyota&model=corolla&year=2005&lat=0&lng=0&miles=2000

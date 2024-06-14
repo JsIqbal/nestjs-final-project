@@ -1,3 +1,5 @@
+// This will not be used anymore as we have a currentuser middleware now!
+/*
 import {
     CallHandler,
     ExecutionContext,
@@ -24,3 +26,5 @@ export class CurrentUserInterceptor implements NestInterceptor {
         return next.handle();
     }
 }
+
+*/
