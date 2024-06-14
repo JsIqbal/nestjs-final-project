@@ -4,12 +4,12 @@ Content-Type: application/json
 
 {
     "price": 20000,
-    "make": "Toyota",
-    "model": "X korolla",
-    "year": 2005,
-    "lat": 0,
-    "lng": 0,
-    "miles": 5000
+    "make": "ford",
+    "model": "mustang",
+    "year": 2006,
+    "lat": 45,
+    "lng": 45,
+    "miles": 4500
 }
 
 ### Update a report
@@ -21,4 +21,4 @@ Content-Type: application/json
 }
 
 ### Set color in session
-GET http://localhost:3000/reports?make=Toyota&model=corolla&year=2005&lat=0&lng=0&miles=2000
+GET http://localhost:3000/reports?make=ford&model=mustang&year=2006&lat=45&lng=45&miles=2000
