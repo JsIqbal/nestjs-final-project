@@ -1,4 +1,4 @@
-// This will not be used anymore as we have a currentuser middleware now!
+//! This will not be used anymore as we have a currentuser middleware now!
 /*
 import {
     CallHandler,
