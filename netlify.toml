@@ -1,8 +1,8 @@
 [build]
-    command ="npm run build"
-    functions="dist"
+  command = "npm run build"
+  functions = "dist"
 
 [[redirects]]
-    from = "/*"
-    status = 200
-    to="/.netlify/functions/lambda"
+  from = "/"
+  to = "/.netlify/functions/server"
+  status = 200
