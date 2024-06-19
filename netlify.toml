@@ -1,5 +1,8 @@
 [build]
-  functions = "netlify/functions"
-  publish = "dist"
-  command = "npm run build"
-  start = "npm run start:prod"
+    command ="yarn build:netlify"
+    functions="dist"
+
+[[redirects]]
+    from = "/*"
+    status = 200
+    to="/.netlify/functions/lambda"
