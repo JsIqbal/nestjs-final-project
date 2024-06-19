@@ -2,6 +2,3 @@
   functions = "netlify/functions"
   publish = "dist"
   command = "npm run start:prod"
-  environment = {
-    NODE_ENV = "production"
-  }
