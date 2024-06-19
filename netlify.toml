@@ -6,6 +6,7 @@
     NODE_ENV = "production" # Example environment variable
   }
 
+# Additional configurations for different contexts
 [context.production.environment]
   NODE_ENV = "production"
 
@@ -14,3 +15,7 @@
 
 [context.build.environment]
   NODE_ENV = "development"
+
+# Example plugin configuration, uncomment and adjust as needed
+#[plugins]
+#  package = "@netlify/plugin-my-framework" # Uncomment and replace with your specific plugin

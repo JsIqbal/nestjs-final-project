@@ -34,7 +34,7 @@ switch (process.env.NODE_ENV) {
             password: config.get("Password"),
             database: config.get("Database"),
             entities: ["**/*.entity.js"],
-            synchronize: true,
+            synchronize: false,
             logging: false,
             extra: {
                 ssl: {
