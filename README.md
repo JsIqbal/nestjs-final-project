@@ -88,3 +88,23 @@ run migration:
 ```bash
 npm run typeorm migration:run
 ```
+
+----
+### Heroku deployment:
+
+* create heroku account
+* heroku login from terminal
+
+commands:
+
+- login
+
+```bash
+heroku login
+```
+
+- create
+
+```bash
+heroku create
+```
