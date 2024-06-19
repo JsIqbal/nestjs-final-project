@@ -1,24 +1,17 @@
-import {
-    MiddlewareConsumer,
-    Module,
-    NestModule,
-    ValidationPipe,
-} from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { Module, ValidationPipe, MiddlewareConsumer } from "@nestjs/common";
 import { APP_PIPE } from "@nestjs/core";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-
-const cookieSession = require("cookie-session");
-
-import { UsersModule } from "./users/users.module";
-import { ReportsModule } from "./reports/reports.module";
-
-import { AppService } from "./app.service";
 
 import { AppController } from "./app.controller";
 
-import dbConfig from "./config/typeorm.config";
-// const dbConfig = require("./config/typeorm.config.js")
+import { AppService } from "./app.service";
+
+import { UsersModule } from "./users/users.module";
+
+import { ReportsModule } from "./reports/reports.module";
+
+const cookieSession = require("cookie-session");
 
 @Module({
     imports: [
@@ -26,7 +19,7 @@ import dbConfig from "./config/typeorm.config";
             isGlobal: true,
             envFilePath: `.env.${process.env.NODE_ENV}`,
         }),
-        TypeOrmModule.forRoot(dbConfig),
+        TypeOrmModule.forRoot(),
         UsersModule,
         ReportsModule,
     ],
@@ -36,21 +29,19 @@ import dbConfig from "./config/typeorm.config";
         {
             provide: APP_PIPE,
             useValue: new ValidationPipe({
-                whitelist: true, // Security feature to filter out everything from request except expectations
+                whitelist: true,
             }),
         },
     ],
 })
-export class AppModule implements NestModule {
+export class AppModule {
+    constructor(private configService: ConfigService) {}
+
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(
                 cookieSession({
-                    name: "session",
-                    keys: [
-                        /* secret keys */
-                        "sdfgmnsrdio",
-                    ],
+                    keys: [this.configService.get("COOKIE_KEY")],
                 })
             )
             .forRoutes("*");
