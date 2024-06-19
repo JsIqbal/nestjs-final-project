@@ -1,8 +1,7 @@
 # compiled output//
-/dist
 /node_modules
 /build
-
+/dist
 # Logs
 logs
 *.log
@@ -41,6 +40,7 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+.env.production
 
 .env.test
 
