@@ -1,0 +1,16 @@
+[build]
+  functions = "netlify/functions" # Specifies the directory for serverless functions
+  publish = "dist" # Specifies the directory to deploy
+  command = "npm run build" # Build command to run
+  environment = {
+    NODE_ENV = "production" # Example environment variable
+  }
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "staging"
+
+[context.build.environment]
+  NODE_ENV = "development"
