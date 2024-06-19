@@ -2,6 +2,6 @@
   functions = "netlify/functions"
   publish = "dist"
   command = "npm run build"
-  environment = { # Start of the environment block
+  environment = {
     NODE_ENV = "production"
-  } # End of the environment block
+  }
