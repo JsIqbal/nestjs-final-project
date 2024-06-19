@@ -64,10 +64,27 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+-   Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+-   Website - [https://nestjs.com](https://nestjs.com/)
+-   Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+### Special instructions for the project:
+
+-   must use the dependencies introduced in the package.json or else will behave unusual.
+-   must understand the underlying problems and fixes of typeorm, ormconfig and TypeOrmModule.
+
+*   generate ts migrations:
+
+```bash
+npm run typeorm migration:generate -- -n initial-schema -o
+```
+
+run migration:
+
+```bash
+npm run typeorm migration:run
+```
