@@ -1,3 +1,6 @@
+const { ConfigService } = require("@nestjs/config");
+const config = new ConfigService();
+
 var dbConfig = {
     synchronize: false,
     migrations: ["migrations/*.js"],
@@ -25,12 +28,21 @@ switch (process.env.NODE_ENV) {
     case "production":
         Object.assign(dbConfig, {
             type: "postgres",
-            url: process.env.DATABASE_URL,
+            host: config.get("Hostname"),
+            port: 5432,
+            username: config.get("Username"),
+            password: config.get("Password"),
+            database: config.get("Database"),
             entities: ["**/*.entity.js"],
-            migrationsRun: true,
-            ssl: {
-                rejectUnauthorized: false,
+            synchronize: true,
+            logging: false,
+            extra: {
+                ssl: {
+                    rejectUnauthorized: false, // Set to true if you want to enforce certificate validation
+                },
             },
+            // Dynamically select the connection string based on the environment
+            url: config.get("External_Database_URL"),
         });
         break;
     default:
